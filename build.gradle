@@ -1,0 +1,26 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.6.0'
+}
+
+group 'com.dexter0us.uproot-js'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+    implementation 'commons-io:commons-io:2.6'          //do not update, it will break
+    implementation 'com.miglayout:miglayout-core:5.3'   //do not update, it will break
+    implementation 'com.miglayout:miglayout-swing:5.3'  //do not update, it will break
+    implementation 'net.portswigger.burp.extender:burp-extender-api:2.3'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.6.0'
+}
+
+task fatJar(type: Jar) {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
