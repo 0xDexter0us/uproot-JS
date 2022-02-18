@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'com.dexter0us.uproot-js'
-version '1.0'
+version '1.0.0'
 
 repositories {
     mavenCentral()
