@@ -62,6 +62,8 @@
 
 ## Changelog
 
+**19 February 2022 - v1.0.0**
+ - Added hostnames as subdirectories to prevent overwrite of files with same name.
 
 **18 February 2022 - v1.0.0**
  - First public release
