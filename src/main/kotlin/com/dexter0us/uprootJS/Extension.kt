@@ -9,7 +9,7 @@ import javax.swing.*
 open class Extension : IBurpExtender, IExtensionStateListener {
     companion object{
         const val pluginName = "uproot-JS"
-        const val version = "1.0"
+        const val version = "1.1.0"
     }
 
     private var urjsUnload = false

@@ -13,7 +13,7 @@ import java.util.*
 
 class HistoryProcessor {
 
-    fun historyParser(fileLocation: String): ProcessResult {
+    fun historyParser(location: String): ProcessResult {
         val channel = Channel<Int>()
         val job = GlobalScope.launch(Dispatchers.Default) {
 
@@ -41,9 +41,10 @@ class HistoryProcessor {
 
                     if (urls.contains(reqInfo.url)) return@forEach
                     urls.add(reqInfo.url)
+                    var path = location + "/" + reqInfo.url.host
                     try {
                         body = Arrays.copyOfRange(it.response, respInfo.bodyOffset, it.response.size)
-                        writeFile(fileLocation, fileName(reqInfo.url.toString()), body)
+                        writeFile(path, fileName(reqInfo.url.toString()), body)
                     } catch (e: Exception) {
                         stderr.println("Unable to save ${reqInfo.url.toString()}")
                         }
@@ -56,9 +57,8 @@ class HistoryProcessor {
 
     val writeFile = { fileLocation: String, fileName: String, body: ByteArray ->
         val absoluteFilePath = FilenameUtils.concat(fileLocation, fileName)
-        console("File: $absoluteFilePath")
         FileUtils.writeByteArrayToFile(File(absoluteFilePath), body)
-        console("Saved $fileName")
+        console(absoluteFilePath)
     }
 
     private fun fileName(url: String): String {
